@@ -22,6 +22,9 @@ int main() {
   // in one minute
   s.in(std::chrono::minutes(1), []() { std::cout << "in one minute" << std::endl; });
 
+  // in 5 seconds
+  s.in(std::chrono::seconds(5), []() { std::cout << "in 5 seconds" << std::endl; });
+
   // run lambda, then wait a second, run lambda, and so on
   // different from every in that multiple instances of the function will never be run concurrently
   s.interval(std::chrono::seconds(1), []() {

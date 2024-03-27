@@ -3,7 +3,7 @@
 #include <iomanip>
 #include <map>
 
-#include "ctpl_stl.h"
+#include <CTPL/ctpl.h>
 
 #include "InterruptableSleep.h"
 #include "Cron.h"

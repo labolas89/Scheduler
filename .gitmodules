@@ -1,0 +1,6 @@
+[submodule "CTPL"]
+	path = CTPL
+	url = git@github.com:labolas89/CTPL.git
+[submodule "boost-headers-only"]
+	path = boost-headers-only
+	url = git@github.com:labolas89/boost-headers-only.git
