@@ -2,3 +2,4 @@
 cmake-build-debug/
 libScheduler.so
 build/
+.vscode/settings.json

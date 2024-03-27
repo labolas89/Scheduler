@@ -9,6 +9,7 @@ find_package(Threads REQUIRED)
 
 include_directories(
     .
+    avl_array
     boost-headers-only)
 
 add_executable(example example.cpp)

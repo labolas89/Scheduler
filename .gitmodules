@@ -4,3 +4,6 @@
 [submodule "boost-headers-only"]
 	path = boost-headers-only
 	url = git@github.com:labolas89/boost-headers-only.git
+[submodule "avl_array"]
+	path = avl_array
+	url = git@github.com:mpaland/avl_array.git

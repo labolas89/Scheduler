@@ -8,6 +8,14 @@
 #include "InterruptableSleep.h"
 #include "Cron.h"
 
+#define USING_AVL_ARRAY 0
+
+#if USING_AVL_ARRAY
+#include <avl_array.h>
+#endif
+
+
+
 namespace Bosma {
     using Clock = std::chrono::system_clock;
 
@@ -165,14 +173,21 @@ namespace Bosma {
         std::atomic<bool> done;
 
         Bosma::InterruptableSleep sleeper;
-
+      #if USING_AVL_ARRAY
+        avl_array<Clock::time_point, std::shared_ptr<Task>, uint8_t, 255> tasks;
+      #else
         std::multimap<Clock::time_point, std::shared_ptr<Task>> tasks;
+      #endif
         std::mutex lock;
         ctpl::thread_pool threads;
 
         void add_task(const Clock::time_point time, std::shared_ptr<Task> t) {
           std::lock_guard<std::mutex> l(lock);
+        #if USING_AVL_ARRAY
+          tasks.insert(time, std::move(t));
+        #else
           tasks.emplace(time, std::move(t));
+        #endif
           sleeper.interrupt();
         }
 

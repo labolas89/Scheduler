@@ -1,12 +1,48 @@
 #include <iostream>
 
 #include "Scheduler.h"
+#include <avl_array.h>
 
 void message(const std::string &s) {
   std::cout << s << std::endl;
 }
 
+template<typename mapTy, typename keyTy>
+void testPrint(mapTy map, keyTy key) {
+  printf("upper_bound(%d) %c\n", key, map.end() != map.upper_bound(key) ? *map.upper_bound(key) : '-');
+  printf("lower_bound(%d) %c\n", key, map.end() != map.lower_bound(key) ? *map.lower_bound(key) : '-');
+  printf("find(%d) %c\n\n", key, map.end() != map.find(key) ? *map.find(key) : '-');
+}
+
 int main() {
+
+  avl_array<int, char, uint8_t, 255> tstMap;
+
+  char cin = 'a';
+  tstMap.insert(1,  cin++); // a
+  tstMap.insert(2,  cin++); // b
+  tstMap.insert(4,  cin++); // c
+  tstMap.insert(4,  cin++); // d
+  tstMap.insert(6,  cin++); // e
+  tstMap.insert(7,  cin++); // f
+  tstMap.insert(7,  cin++); // g
+  tstMap.insert(9,  cin++); // h
+  tstMap.insert(10, cin++); // i
+  tstMap.insert(13, cin++); // j
+
+  testPrint(tstMap, 2);
+  testPrint(tstMap, 3);
+  testPrint(tstMap, 4);
+  testPrint(tstMap, 5);
+  testPrint(tstMap, 6);
+  testPrint(tstMap, 7);
+  testPrint(tstMap, 8);
+  testPrint(tstMap, 9);
+
+
+
+
+
   // number of tasks that can run simultaneously
   // Note: not the number of tasks that can be added,
   //       but number of tasks that can be run in parallel
