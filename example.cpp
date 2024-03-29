@@ -9,37 +9,79 @@ void message(const std::string &s) {
 
 template<typename mapTy, typename keyTy>
 void testPrint(mapTy map, keyTy key) {
-  printf("upper_bound(%d) %c\n", key, map.end() != map.upper_bound(key) ? *map.upper_bound(key) : '-');
-  printf("lower_bound(%d) %c\n", key, map.end() != map.lower_bound(key) ? *map.lower_bound(key) : '-');
+  // printf("upper_bound(%d) %c\n", key, map.end() != map.upper_bound(key) ? *map.upper_bound(key) : '-');
+  // printf("lower_bound(%d) %c\n", key, map.end() != map.lower_bound(key) ? *map.lower_bound(key) : '-');
   printf("find(%d) %c\n\n", key, map.end() != map.find(key) ? *map.find(key) : '-');
 }
 
 int main() {
 
+  // setvbuf(stdout, NULL, _IOLBF, 0);
+  setvbuf(stdout, NULL, _IONBF, 0);
+
+  std::map<int, char> cmap;
+
+
   avl_array<int, char, uint8_t, 255> tstMap;
 
-  char cin = 'a';
-  tstMap.insert(1,  cin++); // a
-  tstMap.insert(2,  cin++); // b
-  tstMap.insert(4,  cin++); // c
-  tstMap.insert(4,  cin++); // d
-  tstMap.insert(6,  cin++); // e
-  tstMap.insert(7,  cin++); // f
-  tstMap.insert(7,  cin++); // g
-  tstMap.insert(9,  cin++); // h
-  tstMap.insert(10, cin++); // i
-  tstMap.insert(13, cin++); // j
+#if 0
+  std::pair<int, char> testArr[] = {
+    {10,'a'},{10,'b'},{20,'c'},{40,'d'},{40,'e'},{60,'f'},{70,'g'},{70,'h'},{90,'i'},{100,'j'},{130,'k'}};
+#else
+  std::pair<int, char> testArr[] = {
+    {130,'a'},{100,'b'},{90,'c'},{70,'d'},{70,'e'},{60,'f'},{40,'g'},{40,'h'},{20,'i'},{10,'j'},{10,'k'}};
+#endif
+  for (auto& pair : testArr)
+  {
+    auto it = cmap.insert(pair);
 
-  testPrint(tstMap, 2);
-  testPrint(tstMap, 3);
-  testPrint(tstMap, 4);
-  testPrint(tstMap, 5);
-  testPrint(tstMap, 6);
-  testPrint(tstMap, 7);
-  testPrint(tstMap, 8);
-  testPrint(tstMap, 9);
+    bool success = it.second;
+    bool isFront = it.first == cmap.begin();
 
+    printf("%s %s %d %c begin:%c\n", 
+      success ? "ok" : "no", 
+      isFront ? "FR" : "NF", 
+      pair.first, 
+      pair.second, 
+      cmap.begin()->second);
+  }
+  printf("\n\n");
 
+  for (auto& pair : testArr)
+  {
+    auto it = tstMap.insert(
+      std::forward<int>(pair.first), 
+      std::forward<char>(pair.second)); 
+
+    bool success = it != tstMap.end();
+    bool isFront = it == tstMap.begin();
+
+    printf("%s %s %d %c begin:%c\n", 
+      success ? "ok" : "no", 
+      isFront ? "FR" : "NF", 
+      pair.first, 
+      pair.second, 
+      *tstMap.begin());
+  }
+  
+  int i = 0;
+  for (auto it = tstMap.begin(); it != tstMap.end(); it++)
+  {
+    auto val = *it;
+    printf("[%d] %c\n", i++, *it);
+  }
+  
+  testPrint(tstMap, 20);
+  testPrint(tstMap, 30);
+  testPrint(tstMap, 40);
+  testPrint(tstMap, 50);
+  testPrint(tstMap, 60);
+  testPrint(tstMap, 70);
+  testPrint(tstMap, 80);
+  testPrint(tstMap, 90);
+  testPrint(tstMap, 100);
+
+  return 0;
 
 
 
